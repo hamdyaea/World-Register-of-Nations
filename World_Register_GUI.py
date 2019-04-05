@@ -38,10 +38,11 @@ def flagdownload():
         url = flaglink
         filename = wget.download(url, out="flagraw.svg")
         try:
-            cmd = "convert  -resize 200x200 flagraw.svg flag.png"
-            os.system(cmd)
-        except:
             cmd = "magick -size 200x200 flagraw.svg flag.png"
+            os.system(cmd)
+
+        except:
+            cmd = "convert  -resize 200x200 flagraw.svg flag.png"
             os.system(cmd)
 
         image_final = 'flag.png'
