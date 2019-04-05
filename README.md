@@ -3,8 +3,8 @@
 # World Register of nations
 
 ![Screenshot](screenshot.png)
-![Screenshot](screenshot1.png)
-![Screenshot](screenshot2.png)
+![Screenshot1](screenshot1.png)
+![Screenshot2](screenshot2.png)
 
 ## What's this software ?  
 
