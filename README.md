@@ -8,6 +8,22 @@
 
 This Python 3 software find and display information about all countries in the world.
 
+## Download the Windows .exe version :
+
+You can run it with Python 3 and the right libraries or for Windows you can use the .exe software that I created there :
+
+[![Download World Register of Nations](https://img.shields.io/sourceforge/dm/world-register-of-nations.svg)](https://sourceforge.net/projects/world-register-of-nations/files/latest/download)
+[![Download World Register of Nations](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/world-register-of-nations/files/latest/download)
+
+
+1) Please install ImageMagick (https://www.imagemagick.org/)
+
+you will find ImageMagick-7.0.8-37-Q16-x64-dll with in this folder.
+When you install it it's important to let it add ImageMagick to your Windows Path.
+
+2) Run World_Register_GUI.exe
+
+
 ## Sources :
 
 https://restcountries.eu/
