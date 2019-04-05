@@ -2,6 +2,8 @@
 
 # World Register of nations
 
+![Screenshot](screenshot3.png)
+
 ![Screenshot](screenshot.png) ![Screenshot](screenshot1.png) ![Screenshot](screenshot2.png)
 
 ## What's this software ?  
@@ -18,7 +20,7 @@ You can run it with Python 3 and the right libraries or for Windows you can use 
 
 1) Please install ImageMagick (https://www.imagemagick.org/)
 
-IMPORTANT, in Windows you the software don't display the pictures without ImageMagick.
+IMPORTANT, in Windows if the software don't display the pictures without ImageMagick.
 
 you will find ImageMagick-7.0.8-37-Q16-x64-dll with in this folder.
 When you install it it's important to let it add ImageMagick to your Windows Path.
