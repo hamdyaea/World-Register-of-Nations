@@ -22,7 +22,7 @@ You can run it with Python 3 and the right libraries or for Windows you can use 
 
 IMPORTANT : in Windows the software don't display the pictures without ImageMagick.
 
-you will find ImageMagick-7.0.8-37-Q16-x64-dll with in this folder or you can download it from the official website imagemagick.org
+you will find ImageMagick-7.0.8-37-Q16-x64-dll with in this folder or you can download it from the official website imagemagick.org.
 When you install it it's important to let it add ImageMagick to your Windows Path.
 
 2) Run World_Register_GUI.exe
