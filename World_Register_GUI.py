@@ -10,17 +10,25 @@ import os
 from easygui import *
 import sys
 
-borderlands = ""
-country_languages = ""
+
+class World:
+    def __init__(self):
+        self.bordelands
+        self.country_languages
+        self.areatotal
+        self.unaccent_nation
+        self.flaglink
+
+
+World.bordelands = ""
+World.country_languages = ""
 
 
 def area():
-    global areatotal
-
     try:
-        areatotal = int(country[0]["area"])
+        World.areatotal = int(country[0]["area"])
     except:
-        areatotal = "No information"
+        World.areatotal = "No information"
         pass
 
 
@@ -36,7 +44,7 @@ def flagdownload():
     if os.path.exists(filePath1):
         os.remove(filePath1)
     try:
-        url = flaglink
+        url = World.flaglink
         filename = wget.download(url, out="flagraw.svg")
         try:
             cmd = "magick -size 200x200 flagraw.svg flag.png"
@@ -80,8 +88,7 @@ def gdp():  # PIB
 
 
 def languages():
-    global country_languages
-    country_languages = ""
+    World.country_languages = ""
     count1 = 0
     counter = (len(lang)) - 1
     while count1 <= counter:
@@ -90,18 +97,19 @@ def languages():
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        country_languages = (
-            country_languages + str(" ") + str(country[0]["languages"][count1]["name"])
+        World.country_languages = (
+            World.country_languages
+            + str(" ")
+            + str(country[0]["languages"][count1]["name"])
         )
         count1 += 1
-        # country_languages = (("\nLanguage : ")+str(country[0]["languages"][count1]["name"]))
+        # World.country_languages = (("\nLanguage : ")+str(country[0]["languages"][count1]["name"]))
         if count1 > counter:
             break
 
 
 def short_languages():  # Language function for countries with code name only
-    global country_languages
-    country_languages = ""
+    World.country_languages = ""
     count1 = 0
     counter = (len(lang)) - 1
     while count1 <= counter:
@@ -110,18 +118,19 @@ def short_languages():  # Language function for countries with code name only
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        country_languages = (
-            country_languages + str(" ") + str(country["languages"][count1]["name"])
+        World.country_languages = (
+            World.country_languages
+            + str(" ")
+            + str(country["languages"][count1]["name"])
         )
         count1 += 1
-        # country_languages = (("\nLanguage : ")+str(country[0]["languages"][count1]["name"]))
+        # World.country_languages = (("\nLanguage : ")+str(country[0]["languages"][count1]["name"]))
         if count1 > counter:
             break
 
 
 def bord_countries():
-    global borderlands, bordertotal
-    borderlands = ""
+    World.bordelands = ""
     if len(bord) > 0:
         try:
             count = 0
@@ -135,25 +144,25 @@ def bord_countries():
                 country_bord = json.loads(data.decode(encoding))
                 country_name = country_bord["name"]
                 count = count + 1
-                borderlands = borderlands + str(" ") + str(country_name)
+                World.bordelands = World.bordelands + str(" ") + str(country_name)
                 if count > counter:
                     break
         except:
             print("Border-error")
             pass
     else:
-        borderlands = "No border"
+        World.bordelands = "No border"
 
 
 def getdata():
-    global bord, lang, unaccent_nation, flaglink, country
+    global bord, lang, country
     if choice_country == "KOR":
         urlData = ("https://restcountries.eu/rest/v2/alpha/") + str(choice_country)
         webURL = urllib.request.urlopen(urlData)
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        flaglink = country["flag"]
+        World.flaglink = country["flag"]
         bord = country["borders"]
         lang = country["languages"]
         gdp()
@@ -172,9 +181,9 @@ def getdata():
             + str(("\nPopulation : ") + str(country["population"]))
             + str(("\nTimezone : ") + (country["timezones"][0]))
             + str(("\nCurrencies : ") + (country["currencies"][0]["name"]))
-            + str(("\nArea : ") + str(areatotal) + str(" Km2"))
-            + str((gdp_tot) + str("\nBorders : ") + (borderlands))
-            + str(("\nLanguages : ") + str(country_languages))
+            + str(("\nArea : ") + str(World.areatotal) + str(" Km2"))
+            + str((gdp_tot) + str("\nBorders : ") + (World.bordelands))
+            + str(("\nLanguages : ") + str(World.country_languages))
         )
 
         choices = ["Retry", "Quit"]
@@ -191,7 +200,7 @@ def getdata():
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        flaglink = country["flag"]
+        World.flaglink = country["flag"]
         bord = country["borders"]
         lang = country["languages"]
         gdp()
@@ -210,9 +219,9 @@ def getdata():
             + str(("\nPopulation : ") + str(country["population"]))
             + str(("\nTimezone : ") + (country["timezones"][0]))
             + str(("\nCurrencies : ") + (country["currencies"][0]["name"]))
-            + str(("\nArea : ") + str(areatotal) + str(" Km2"))
-            + str((gdp_tot) + str("\nBorders : ") + (borderlands))
-            + str(("\nLanguages : ") + str(country_languages))
+            + str(("\nArea : ") + str(World.areatotal) + str(" Km2"))
+            + str((gdp_tot) + str("\nBorders : ") + (World.bordelands))
+            + str(("\nLanguages : ") + str(World.country_languages))
         )
 
         choices = ["Retry", "Quit"]
@@ -229,7 +238,7 @@ def getdata():
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        flaglink = country["flag"]
+        World.flaglink = country["flag"]
         bord = country["borders"]
         lang = country["languages"]
         gdp()
@@ -248,9 +257,9 @@ def getdata():
             + str(("\nPopulation : ") + str(country["population"]))
             + str(("\nTimezone : ") + (country["timezones"][0]))
             + str(("\nCurrencies : ") + (country["currencies"][0]["name"]))
-            + str(("\nArea : ") + str(areatotal) + str(" Km2"))
-            + str((gdp_tot) + str("\nBorders : ") + (borderlands))
-            + str(("\nLanguages : ") + str(country_languages))
+            + str(("\nArea : ") + str(World.areatotal) + str(" Km2"))
+            + str((gdp_tot) + str("\nBorders : ") + (World.bordelands))
+            + str(("\nLanguages : ") + str(World.country_languages))
         )
 
         choices = ["Retry", "Quit"]
@@ -267,7 +276,7 @@ def getdata():
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        flaglink = country["flag"]
+        World.flaglink = country["flag"]
         bord = country["borders"]
         lang = country["languages"]
         gdp()
@@ -286,9 +295,9 @@ def getdata():
             + str(("\nPopulation : ") + str(country["population"]))
             + str(("\nTimezone : ") + (country["timezones"][0]))
             + str(("\nCurrencies : ") + (country["currencies"][0]["name"]))
-            + str(("\nArea : ") + str(areatotal) + str(" Km2"))
-            + str((gdp_tot) + str("\nBorders : ") + (borderlands))
-            + str(("\nLanguages : ") + str(country_languages))
+            + str(("\nArea : ") + str(World.areatotal) + str(" Km2"))
+            + str((gdp_tot) + str("\nBorders : ") + (World.bordelands))
+            + str(("\nLanguages : ") + str(World.country_languages))
         )
 
         choices = ["Retry", "Quit"]
@@ -305,7 +314,7 @@ def getdata():
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        flaglink = country["flag"]
+        World.flaglink = country["flag"]
         bord = country["borders"]
         lang = country["languages"]
         gdp()
@@ -324,9 +333,9 @@ def getdata():
             + str(("\nPopulation : ") + str(country["population"]))
             + str(("\nTimezone : ") + (country["timezones"][0]))
             + str(("\nCurrencies : ") + (country["currencies"][0]["name"]))
-            + str(("\nArea : ") + str(areatotal) + str(" Km2"))
-            + str((gdp_tot) + str("\nBorders : ") + (borderlands))
-            + str(("\nLanguages : ") + str(country_languages))
+            + str(("\nArea : ") + str(World.areatotal) + str(" Km2"))
+            + str((gdp_tot) + str("\nBorders : ") + (World.bordelands))
+            + str(("\nLanguages : ") + str(World.country_languages))
         )
 
         choices = ["Retry", "Quit"]
@@ -343,7 +352,7 @@ def getdata():
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        flaglink = country["flag"]
+        World.flaglink = country["flag"]
         bord = country["borders"]
         lang = country["languages"]
         gdp()
@@ -362,9 +371,9 @@ def getdata():
             + str(("\nPopulation : ") + str(country["population"]))
             + str(("\nTimezone : ") + (country["timezones"][0]))
             + str(("\nCurrencies : ") + (country["currencies"][0]["name"]))
-            + str(("\nArea : ") + str(areatotal) + str(" Km2"))
-            + str((gdp_tot) + str("\nBorders : ") + (borderlands))
-            + str(("\nLanguages : ") + str(country_languages))
+            + str(("\nArea : ") + str(World.areatotal) + str(" Km2"))
+            + str((gdp_tot) + str("\nBorders : ") + (World.bordelands))
+            + str(("\nLanguages : ") + str(World.country_languages))
         )
 
         choices = ["Retry", "Quit"]
@@ -381,7 +390,7 @@ def getdata():
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        flaglink = country["flag"]
+        World.flaglink = country["flag"]
         bord = country["borders"]
         lang = country["languages"]
         gdp()
@@ -400,9 +409,9 @@ def getdata():
             + str(("\nPopulation : ") + str(country["population"]))
             + str(("\nTimezone : ") + (country["timezones"][0]))
             + str(("\nCurrencies : ") + (country["currencies"][0]["name"]))
-            + str(("\nArea : ") + str(areatotal) + str(" Km2"))
-            + str((gdp_tot) + str("\nBorders : ") + (borderlands))
-            + str(("\nLanguages : ") + str(country_languages))
+            + str(("\nArea : ") + str(World.areatotal) + str(" Km2"))
+            + str((gdp_tot) + str("\nBorders : ") + (World.bordelands))
+            + str(("\nLanguages : ") + str(World.country_languages))
         )
 
         choices = ["Retry", "Quit"]
@@ -420,7 +429,7 @@ def getdata():
         data = webURL.read()
         encoding = webURL.info().get_content_charset("utf-8")
         country = json.loads(data.decode(encoding))
-        flaglink = country[0]["flag"]
+        World.flaglink = country[0]["flag"]
         bord = country[0]["borders"]
         lang = country[0]["languages"]
         gdp()
@@ -438,12 +447,12 @@ def getdata():
             + str(("\nPopulation : ") + str(country[0]["population"]))
             + str(("\nTimezone : ") + (country[0]["timezones"][0]))
             + str(("\nCurrencies : ") + (country[0]["currencies"][0]["name"]))
-            + str(("\nArea : ") + str(areatotal) + str(" Km2"))
+            + str(("\nArea : ") + str(World.areatotal) + str(" Km2"))
             + (gdp_tot)
             + str("\nBorders : ")
-            + (borderlands)
+            + (World.bordelands)
             + str("\nLanguages : ")
-            + str(country_languages)
+            + str(World.country_languages)
         )
         choices = ["Retry", "Quit"]
         reply = buttonbox(msg, image=image_final, choices=choices)
