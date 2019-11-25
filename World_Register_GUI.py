@@ -1,7 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # Developer : Hamdy Abou El Anein
-
+# hamdy.aea@protonmail.com
 
 import json
 import urllib.request
@@ -714,6 +714,12 @@ def SelectCountry():
 
     if choice_country == "Bouvet Island":
         choice_country = "bouvet"
+    elif choice_country == "The Bahamas":
+        choice_country = "bahamas"
+    elif choice_country == "American Samoa":
+        choice_country = "samoa"
+    elif choice_country == "Antigua and Barbuda":
+        choice_country = "Antigua"
     elif choice_country == "Burkina Faso":
         choice_country = "burkina"
     elif choice_country == "Cape Verde Cabo Verde":
