@@ -18,6 +18,8 @@ class World:
         self.areatotal
         self.unaccent_nation
         self.flaglink
+        self.LangName
+        self.shortLang
 
 
 World.bordelands = ""
@@ -89,73 +91,50 @@ def gdp():  # PIB
 
 def languages():
     World.country_languages = ""
-    count1 = 0
-    counter = (len(lang)) - 1
-    while count1 <= counter:
-        urlData = ("https://restcountries.eu/rest/v2/name/") + str(choice_country)
-        webURL = urllib.request.urlopen(urlData)
-        data = webURL.read()
-        encoding = webURL.info().get_content_charset("utf-8")
-        country = json.loads(data.decode(encoding))
+    urlData = ("https://restcountries.eu/rest/v2/name/") + str(choice_country)
+    webURL = urllib.request.urlopen(urlData)
+    data = webURL.read()
+    encoding = webURL.info().get_content_charset("utf-8")
+    country = json.loads(data.decode(encoding))
+    for i in country[0]["languages"]:
+        World.LangName = i["name"]
         World.country_languages = (
-            World.country_languages
-            + str(" ")
-            + str(country[0]["languages"][count1]["name"])
+            World.country_languages + str(" ") + str(World.LangName)
         )
-        count1 += 1
-        # World.country_languages = (("\nLanguage : ")+str(country[0]["languages"][count1]["name"]))
-        if count1 > counter:
-            break
 
 
 def short_languages():  # Language function for countries with code name only
     World.country_languages = ""
-    count1 = 0
-    counter = (len(lang)) - 1
-    while count1 <= counter:
-        urlData = ("https://restcountries.eu/rest/v2/alpha/") + str(choice_country)
-        webURL = urllib.request.urlopen(urlData)
-        data = webURL.read()
-        encoding = webURL.info().get_content_charset("utf-8")
-        country = json.loads(data.decode(encoding))
+    urlData = ("https://restcountries.eu/rest/v2/alpha/") + str(choice_country)
+    webURL = urllib.request.urlopen(urlData)
+    data = webURL.read()
+    encoding = webURL.info().get_content_charset("utf-8")
+    country = json.loads(data.decode(encoding))
+    for i in country["languages"]:
+        World.shortLang = i["name"]
         World.country_languages = (
-            World.country_languages
-            + str(" ")
-            + str(country["languages"][count1]["name"])
+            World.country_languages + str(" ") + str(World.shortLang)
         )
-        count1 += 1
-        # World.country_languages = (("\nLanguage : ")+str(country[0]["languages"][count1]["name"]))
-        if count1 > counter:
-            break
 
 
 def bord_countries():
     World.bordelands = ""
     if len(bord) > 0:
-        try:
-            count = 0
-            counter = (len(bord)) - 1
-
-            while count <= counter:
-                urlData = ("https://restcountries.eu/rest/v2/alpha/") + str(bord[count])
-                webURL = urllib.request.urlopen(urlData)
-                data = webURL.read()
-                encoding = webURL.info().get_content_charset("utf-8")
-                country_bord = json.loads(data.decode(encoding))
-                country_name = country_bord["name"]
-                count = count + 1
-                World.bordelands = World.bordelands + str(" ") + str(country_name)
-                if count > counter:
-                    break
-        except:
-            print("Border-error")
-            pass
+        for i in bord:
+            country_code = i
+            urlData = ("https://restcountries.eu/rest/v2/alpha/") + str(country_code)
+            webURL = urllib.request.urlopen(urlData)
+            data = webURL.read()
+            encoding = webURL.info().get_content_charset("utf-8")
+            country_bord = json.loads(data.decode(encoding))
+            country_name = country_bord["name"]
+            World.bordelands = World.bordelands + str(" ") + str(country_name)
     else:
         World.bordelands = "No border"
 
 
 def getdata():
-    global bord, lang, country
+    global bord, lang, country, choice_country
     if choice_country == "KOR":
         urlData = ("https://restcountries.eu/rest/v2/alpha/") + str(choice_country)
         webURL = urllib.request.urlopen(urlData)
@@ -232,6 +211,7 @@ def getdata():
             sys.exit(0)
         else:
             sys.exit(0)
+
     elif choice_country == "ind":
         urlData = ("https://restcountries.eu/rest/v2/alpha/") + str(choice_country)
         webURL = urllib.request.urlopen(urlData)
@@ -270,6 +250,7 @@ def getdata():
             sys.exit(0)
         else:
             sys.exit(0)
+
     elif choice_country == "maf":
         urlData = ("https://restcountries.eu/rest/v2/alpha/") + str(choice_country)
         webURL = urllib.request.urlopen(urlData)
@@ -308,6 +289,7 @@ def getdata():
             sys.exit(0)
         else:
             sys.exit(0)
+
     elif choice_country == "PSE":
         urlData = ("https://restcountries.eu/rest/v2/alpha/") + str(choice_country)
         webURL = urllib.request.urlopen(urlData)
@@ -423,7 +405,6 @@ def getdata():
         else:
             sys.exit(0)
     else:
-
         urlData = ("https://restcountries.eu/rest/v2/name/") + str(choice_country)
         webURL = urllib.request.urlopen(urlData)
         data = webURL.read()
