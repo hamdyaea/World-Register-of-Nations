@@ -1,0 +1,1 @@
+Country flags rendered from the SVG artwork in https://github.com/mledoze/countries/tree/fa4f62182d19ff4f8b325cde6387c9cd9d80955a/data. See the upstream README for its separate notice on national emblems.

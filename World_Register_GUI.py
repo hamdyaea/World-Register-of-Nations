@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 import threading
 import tkinter as tk
 from tkinter import ttk
@@ -116,6 +117,8 @@ class CountriesWindow(tk.Tk):
         self.listbox = tk.Listbox(columns, exportselection=False, width=32)
         self.listbox.pack(side="left", fill="y", padx=(0, 14))
         self.listbox.bind("<<ListboxSelect>>", self.show_selection)
+        self.flag_image = ttk.Label(columns)
+        self.flag_image.pack(side="right", padx=6)
         self.details = tk.Text(columns, wrap="word", font=("Sans", 12), state="disabled")
         self.details.pack(side="left", fill="both", expand=True)
         controls = ttk.Frame(outer)
@@ -134,7 +137,7 @@ class CountriesWindow(tk.Tk):
         try:
             result = fetch_countries()
         except (requests.RequestException, ValueError, TypeError) as exc:
-            self.after(0, lambda: self._error(str(exc)))
+            self.after(0, lambda message=str(exc): self._error(message))
             return
         self.after(0, lambda: self._loaded(result))
 
@@ -161,6 +164,7 @@ class CountriesWindow(tk.Tk):
             self.listbox.selection_set(0)
             self.show_selection()
         else:
+            self.flag_image.configure(image="")
             self._display("No matching country.")
 
     def _display(self, content):
@@ -172,7 +176,13 @@ class CountriesWindow(tk.Tk):
     def show_selection(self, _event=None):
         selected = self.listbox.curselection()
         if selected and selected[0] < len(self.filtered):
-            self._display(self.filtered[selected[0]].describe())
+            country = self.filtered[selected[0]]
+            code = country.code.upper()
+            path = Path(__file__).resolve().parent / "flags" / (code + ".png")
+            self.flag_image.image = (tk.PhotoImage(file=str(path)) if len(code) == 2
+                                     and code.isascii() and code.isalpha() and path.is_file() else None)
+            self.flag_image.configure(image=self.flag_image.image or "")
+            self._display(country.describe())
 
 
 if __name__ == "__main__":
